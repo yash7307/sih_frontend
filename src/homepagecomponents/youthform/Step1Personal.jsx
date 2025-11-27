@@ -4,68 +4,132 @@ import React from "react";
 export default function Step1Personal({ data, update, next }) {
   const onChange = (e) => update({ [e.target.name]: e.target.value });
 
+  // basic completion check for enabling Next
+  const required = ["fullname", "fatherName", "dob", "gender", "mobile"];
+  const isComplete = required.every((k) => data[k] && String(data[k]).trim().length > 0);
+
   return (
     <div className="bg-white rounded-2xl p-6 shadow-md">
       <h3 className="text-xl font-semibold mb-4">Personal Details</h3>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input
-          name="fullname"
-          value={data.fullname}
-          onChange={onChange}
-          placeholder="Full name"
-          className="p-3 border rounded-lg"
-        />
-        <input
-          name="fathername"
-          value={data.fathername}
-          onChange={onChange}
-          placeholder="Father's name"
-          className="p-3 border rounded-lg"
-        />
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Full Name *</label>
+          <input
+            name="fullname"
+            value={data.fullname}
+            onChange={onChange}
+            className="mt-1 block w-full p-3 border rounded-lg"
+            placeholder="Enter candidate full name"
+          />
+        </div>
 
-        <input
-          name="dob"
-          type="date"
-          value={data.dob}
-          onChange={onChange}
-          className="p-3 border rounded-lg"
-        />
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Father / Mother / Guardian Name *</label>
+          <input
+            name="fatherName"
+            value={data.fatherName}
+            onChange={onChange}
+            className="mt-1 block w-full p-3 border rounded-lg"
+            placeholder="Parent / guardian name"
+          />
+        </div>
 
-        <select
-          name="gender"
-          value={data.gender}
-          onChange={onChange}
-          className="p-3 border rounded-lg"
-        >
-          <option value="">Select gender</option>
-          <option>Male</option>
-          <option>Female</option>
-          <option>Other</option>
-        </select>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Date of Birth *</label>
+          <input
+            name="dob"
+            type="date"
+            value={data.dob}
+            onChange={onChange}
+            className="mt-1 block w-full p-3 border rounded-lg"
+          />
+        </div>
 
-        <input
-          name="email"
-          type="email"
-          value={data.email}
-          onChange={onChange}
-          placeholder="Email"
-          className="p-3 border rounded-lg md:col-span-2"
-        />
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Gender *</label>
+          <select
+            name="gender"
+            value={data.gender}
+            onChange={onChange}
+            className="mt-1 block w-full p-3 border rounded-lg"
+          >
+            <option value="">Select gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+        </div>
 
-        <input
-          name="mobile"
-          value={data.mobile}
-          onChange={onChange}
-          placeholder="Mobile"
-          className="p-3 border rounded-lg md:col-span-2"
-          maxLength={10}
-        />
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Category</label>
+          <select
+            name="category"
+            value={data.category}
+            onChange={onChange}
+            className="mt-1 block w-full p-3 border rounded-lg"
+          >
+            <option value="">Select category</option>
+            <option>General</option>
+            <option>OBC</option>
+            <option>SC</option>
+            <option>ST</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Differently Abled</label>
+          <select
+            name="differentlyAbled"
+            value={data.differentlyAbled}
+            onChange={onChange}
+            className="mt-1 block w-full p-3 border rounded-lg"
+          >
+            <option>No</option>
+            <option>Yes</option>
+          </select>
+        </div>
+
+        <div className="md:col-span-2">
+          <label className="block text-sm font-medium text-gray-700">Email</label>
+          <input
+            name="email"
+            type="email"
+            value={data.email}
+            onChange={onChange}
+            className="mt-1 block w-full p-3 border rounded-lg"
+            placeholder="you@example.com"
+          />
+        </div>
+
+        <div className="md:col-span-2">
+          <label className="block text-sm font-medium text-gray-700">Mobile Number *</label>
+          <div className="flex gap-2 items-center">
+            <input
+              name="mobile"
+              value={data.mobile}
+              onChange={(e) => update({ mobile: e.target.value.replace(/\D/g, "").slice(0, 10) })}
+              className="mt-1 block w-full p-3 border rounded-lg"
+              placeholder="10-digit mobile number"
+            />
+            <input
+              name="alternativeMobile"
+              value={data.alternativeMobile}
+              onChange={(e) => update({ alternativeMobile: e.target.value.replace(/\D/g, "").slice(0, 10) })}
+              className="mt-1 block w-44 p-3 border rounded-lg"
+              placeholder="Alt (optional)"
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="flex justify-end mt-6">
-        <button onClick={next} className="bg-blue-600 text-white px-6 py-2 rounded-lg">
-          Next →
+      <div className="mt-6 flex justify-end">
+        <button
+          onClick={next}
+          disabled={!isComplete}
+          className={`px-6 py-3 rounded-lg font-semibold transition ${isComplete ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`}
+        >
+          Save & Next →
         </button>
       </div>
     </div>
