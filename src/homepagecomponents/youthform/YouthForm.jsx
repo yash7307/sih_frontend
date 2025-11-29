@@ -112,10 +112,44 @@ export default function RegistrationForm() {
     }
 
     try {
+      const formData = new FormData();
+
+      // 1. Append simple fields
+      Object.keys(form).forEach(key => {
+        if (typeof form[key] !== 'object' && key !== 'educationList' && key !== 'experienceList' && key !== 'skills' && key !== 'documents') {
+          formData.append(key, form[key]);
+        }
+      });
+
+      // 2. Append complex arrays (JSON stringify)
+      // Handle educationList - extract files first
+      const eduList = (form.educationList || []).map(edu => {
+        if (edu.certificate instanceof File) {
+          formData.append('certificates', edu.certificate);
+          return { ...edu, certificate: { type: 'file_upload' } }; // Placeholder
+        }
+        return edu;
+      });
+      formData.append('educationList', JSON.stringify(eduList));
+
+      formData.append('experienceList', JSON.stringify(form.experienceList || []));
+      formData.append('skills', JSON.stringify(form.skills || []));
+
+      // 3. Append Documents (Aadhar & Photo)
+      if (form.documents?.aadhar instanceof File) {
+        formData.append('aadhar', form.documents.aadhar);
+      }
+      if (form.documents?.photo instanceof File) {
+        formData.append('photo', form.documents.photo);
+      }
+      // Append metadata for documents if needed, or just rely on files
+      // We can send the rest of documents object as JSON if it contains other info
+      // But for now, we only have files there.
+
       const res = await fetch("https://sih-backend-4.onrender.com/api/youth/register", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
+        // headers: { "Content-Type": "multipart/form-data" }, // Browser sets this automatically with boundary
+        body: formData
       });
       const data = await res.json();
       if (res.ok) {

@@ -53,18 +53,8 @@ export default function Step3Education({ data, update, next, back }) {
       return;
     }
 
-    let certificateData = null;
-    if (entry.certificate instanceof File) {
-      try {
-        certificateData = await toBase64(entry.certificate);
-      } catch (err) {
-        console.error("Error converting file:", err);
-        alert("Error processing certificate file");
-        return;
-      }
-    }
-
-    const newEntry = { ...entry, certificate: certificateData };
+    // Store File object directly
+    const newEntry = { ...entry, certificate: entry.certificate };
     const newList = [...(data.educationList || []), newEntry];
     update({ educationList: newList });
 

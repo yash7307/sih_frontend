@@ -53,8 +53,8 @@ export default function Step4Documents({ data, update, next, back }) {
       return;
     }
 
-    const base = await toBase64(file);
-    update({ documents: { ...data.documents, [key]: base } });
+    // Store File object directly
+    update({ documents: { ...data.documents, [key]: file } });
   };
 
   return (
