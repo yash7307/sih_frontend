@@ -112,7 +112,7 @@ export default function RegistrationForm() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/youth/register", {
+      const res = await fetch("https://sih-backend-4.onrender.com/api/youth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
@@ -166,7 +166,7 @@ export default function RegistrationForm() {
                 next={next}
               />
             )}
-             {step === 3 && (
+            {step === 3 && (
               <Step3Education
                 data={form}
                 update={update}
@@ -174,7 +174,7 @@ export default function RegistrationForm() {
                 next={next}
               />
             )}
-             {step === 4 && (
+            {step === 4 && (
               <Step4Skills
                 data={form}
                 update={update}
@@ -190,7 +190,7 @@ export default function RegistrationForm() {
                 next={next}
               />
             )}
-             {step === 6 && (
+            {step === 6 && (
               <Step6Review
                 data={form}
                 update={update}
