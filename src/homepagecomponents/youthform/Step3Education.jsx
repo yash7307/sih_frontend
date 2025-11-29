@@ -24,7 +24,22 @@ export default function Step3Education({ data, update, next, back }) {
     }));
   };
 
-  const addEntry = () => {
+  // Helper to convert file to base64
+  const toBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve({
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        data: reader.result
+      });
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const addEntry = async () => {
     if (
       !entry.qualification ||
       !entry.course ||
@@ -38,7 +53,19 @@ export default function Step3Education({ data, update, next, back }) {
       return;
     }
 
-    const newList = [...(data.educationList || []), entry];
+    let certificateData = null;
+    if (entry.certificate instanceof File) {
+      try {
+        certificateData = await toBase64(entry.certificate);
+      } catch (err) {
+        console.error("Error converting file:", err);
+        alert("Error processing certificate file");
+        return;
+      }
+    }
+
+    const newEntry = { ...entry, certificate: certificateData };
+    const newList = [...(data.educationList || []), newEntry];
     update({ educationList: newList });
 
     // Clear local form
