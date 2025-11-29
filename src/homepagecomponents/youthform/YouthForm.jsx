@@ -173,13 +173,13 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div className="min-h-screen p-6" style={bgStyle}>
-      <div className="max-w-6xl mx-auto bg-white/85 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden">
-        <div className="px-8 py-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold">Youth Registration</h2>
-            <div className="text-sm text-gray-600">
-              <span className="mr-3">Step {step} of 2</span>
+    <div className="min-h-screen p-3 md:p-6" style={bgStyle}>
+      <div className="max-w-full md:max-w-6xl mx-auto bg-white/85 backdrop-blur-md rounded-2xl md:rounded-3xl shadow-2xl overflow-hidden">
+        <div className="px-4 md:px-8 py-4 md:py-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
+            <h2 className="text-xl md:text-2xl font-bold">Youth Registration</h2>
+            <div className="text-xs md:text-sm text-gray-600">
+              <span className="mr-3">Step {step} of 6</span>
               <span>{saving ? "Saving..." : "Saved"}</span>
             </div>
           </div>
@@ -188,7 +188,7 @@ export default function RegistrationForm() {
             <ProgressBar step={step} total={6} />
           </div>
 
-          <div className="mt-6">
+          <div className="mt-4 md:mt-6">
             {step === 1 && (
               <Step1Personal data={form} update={update} next={next} />
             )}
