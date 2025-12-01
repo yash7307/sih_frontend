@@ -1,5 +1,6 @@
 // src/homepagecomponents/registration/RegistrationForm.jsx
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ProgressBar from "./progressBar";
 import Step1Personal from "./Step1Personal";
 import Step2Address from "./Step2Address";
@@ -11,6 +12,7 @@ import Step6Review from "./Step6review";
 const STORAGE_KEY = "youth_reg_v3";
 
 export default function RegistrationForm() {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [saving, setSaving] = useState(false);
 
@@ -145,17 +147,14 @@ export default function RegistrationForm() {
       // Append metadata for documents if needed, or just rely on files
       // We can send the rest of documents object as JSON if it contains other info
       // But for now, we only have files there.
-
       const res = await fetch("https://sih-backend-4.onrender.com/api/youth/register", {
         method: "POST",
-        // headers: { "Content-Type": "multipart/form-data" }, // Browser sets this automatically with boundary
         body: formData
       });
       const data = await res.json();
       if (res.ok) {
-        alert("Registration submitted successfully ✔");
         localStorage.removeItem(STORAGE_KEY);
-        // reset or navigate as needed
+        navigate("/submission-success");
       } else {
         alert("Submit failed: " + (data.error || JSON.stringify(data)));
       }
@@ -229,7 +228,8 @@ export default function RegistrationForm() {
                 data={form}
                 update={update}
                 back={back}
-                submit={handleSubmit}
+                onSubmit={handleSubmit}
+                goTo={setStep}
               />
             )}
           </div>

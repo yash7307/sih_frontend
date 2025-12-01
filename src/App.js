@@ -16,6 +16,7 @@ const EventsGallery = lazy(() => import('./homepagecomponents/events-gallery'));
 const PartnersSection = lazy(() => import('./homepagecomponents/partner-section'));
 const YouthRegistration = lazy(() => import("./homepagecomponents/YouthRegistration"));
 const YouthForm = lazy(() => import("./homepagecomponents/youthform/YouthForm"));
+const SubmissionSuccess = lazy(() => import("./homepagecomponents/SubmissionSuccess"));
 
 // Loading spinner component
 const LoadingSpinner = () => (
@@ -49,6 +50,7 @@ const LayoutWrapper = ({ children }) => {
   const hideHeaderRoutes = [
     '/youth-registration',
     '/youth-form',
+    '/submission-success',
     '/mobile-verification',
     '/otp-verification',
     '/resume-upload'
@@ -80,6 +82,7 @@ function App() {
             {/* Registration routes (without header) */}
             <Route path="/youth-registration" element={<YouthRegistration />} />
             <Route path="/youth-form" element={<YouthForm />} />
+            <Route path="/submission-success" element={<SubmissionSuccess />} />
             
             {/* 404 Not Found route */}
             <Route path="*" element={
