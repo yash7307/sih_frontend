@@ -17,6 +17,7 @@ const PartnersSection = lazy(() => import('./homepagecomponents/partner-section'
 const YouthRegistration = lazy(() => import("./homepagecomponents/YouthRegistration"));
 const YouthForm = lazy(() => import("./homepagecomponents/youthform/YouthForm"));
 const SubmissionSuccess = lazy(() => import("./homepagecomponents/SubmissionSuccess"));
+const Login = lazy(() => import("./homepagecomponents/Login"));
 
 // Loading spinner component
 const LoadingSpinner = () => (
@@ -45,20 +46,21 @@ const HomePage = () => (
 // Layout wrapper component
 const LayoutWrapper = ({ children }) => {
   const location = useLocation();
-  
+
   // Routes where header should be hidden
   const hideHeaderRoutes = [
     '/youth-registration',
     '/youth-form',
     '/submission-success',
+    '/login',
     '/mobile-verification',
     '/otp-verification',
     '/resume-upload'
   ];
-  
+
   // Check if current route should hide header
   const shouldHideHeader = hideHeaderRoutes.includes(location.pathname);
-  
+
   return (
     <>
       {!shouldHideHeader && <PMHeader />}
@@ -75,23 +77,24 @@ function App() {
           <Routes>
             {/* Redirect root to home */}
             <Route path="/" element={<Navigate to="/home" replace />} />
-            
+
             {/* Home page route */}
             <Route path="/home" element={<HomePage />} />
-            
-            {/* Registration routes (without header) */}
+
+            {/* Registration and auth routes (without header) */}
             <Route path="/youth-registration" element={<YouthRegistration />} />
             <Route path="/youth-form" element={<YouthForm />} />
             <Route path="/submission-success" element={<SubmissionSuccess />} />
-            
+            <Route path="/login" element={<Login />} />
+
             {/* 404 Not Found route */}
             <Route path="*" element={
               <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-orange-50">
                 <div className="text-center p-8">
                   <h1 className="text-6xl font-bold text-gray-800 mb-4">404</h1>
                   <p className="text-xl text-gray-600 mb-8">Page Not Found</p>
-                  <a 
-                    href="/home" 
+                  <a
+                    href="/home"
                     className="inline-block bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
                     Go to Home

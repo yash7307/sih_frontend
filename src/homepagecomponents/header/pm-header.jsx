@@ -73,15 +73,15 @@ export default function PMHeader() {
           <div className="flex items-center gap-2">
             {/* Mobile: smaller buttons */}
             <Link to="/youth-registration" className="md:hidden bg-orange-500 text-white px-3 py-2 rounded-lg text-xs font-semibold shadow-md hover:bg-orange-600 transition-all">Register</Link>
-            <button className="md:hidden bg-orange-500 text-white px-3 py-2 rounded-lg text-xs font-semibold shadow-md hover:bg-orange-600 transition-all">
+            <Link to="/login" className="md:hidden bg-orange-500 text-white px-3 py-2 rounded-lg text-xs font-semibold shadow-md hover:bg-orange-600 transition-all">
               Login
-            </button>
+            </Link>
 
             {/* Desktop: full-size buttons */}
             <Link to="/youth-registration" className="hidden md:block bg-orange-500 text-white px-5 py-2.5 rounded-lg font-semibold shadow-md hover:bg-orange-600 hover:shadow-lg transition-all">Youth Registration</Link>
-            <button className="hidden md:block bg-orange-500 text-white px-5 py-2.5 rounded-lg font-semibold shadow-md hover:bg-orange-600 hover:shadow-lg transition-all">
+            <Link to="/login" className="hidden md:block bg-orange-500 text-white px-5 py-2.5 rounded-lg font-semibold shadow-md hover:bg-orange-600 hover:shadow-lg transition-all">
               Login
-            </button>
+            </Link>
 
             {/* Mobile hamburger button */}
             <button
@@ -146,7 +146,7 @@ export default function PMHeader() {
               {/* Mobile action buttons */}
               <div className="border-t border-gray-700 pt-3 mt-3 space-y-2">
                 <Link to="/youth-registration" className="block bg-orange-500 text-white text-center px-4 py-3 rounded-lg font-semibold shadow-md hover:bg-orange-600 transition-all" onClick={() => setMobileMenuOpen(false)}>Youth Registration</Link>
-                <button className="block w-full bg-orange-500 text-white px-4 py-3 rounded-lg font-semibold shadow-md hover:bg-orange-600 transition-all">Login</button>
+                <Link to="/login" className="block w-full bg-orange-500 text-white text-center px-4 py-3 rounded-lg font-semibold shadow-md hover:bg-orange-600 transition-all" onClick={() => setMobileMenuOpen(false)}>Login</Link>
               </div>
             </div>
           </div>
